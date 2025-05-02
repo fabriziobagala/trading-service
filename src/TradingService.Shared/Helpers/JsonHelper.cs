@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace TradingService.Shared.Helpers;
 
@@ -8,6 +9,14 @@ namespace TradingService.Shared.Helpers;
 /// </summary>
 public static class JsonHelper
 {
+    private static readonly JsonSerializerOptions defaultOptions = new(JsonSerializerDefaults.Web)
+    {
+        Converters =
+        {
+            new JsonStringEnumConverter()
+        }
+    };
+
     /// <summary>
     /// Asynchronously serializes an object to a JSON string.
     /// </summary>
@@ -25,7 +34,7 @@ public static class JsonHelper
 
         using var stream = new MemoryStream();
 
-        await JsonSerializer.SerializeAsync(stream, obj, cancellationToken: cancellationToken)
+        await JsonSerializer.SerializeAsync(stream, obj, defaultOptions, cancellationToken)
             .ConfigureAwait(false);
 
         stream.Position = 0;
@@ -53,7 +62,7 @@ public static class JsonHelper
         byte[] bytes = Encoding.UTF8.GetBytes(json);
         using var stream = new MemoryStream(bytes);
 
-        return await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken)
+        return await JsonSerializer.DeserializeAsync<T>(stream, defaultOptions, cancellationToken)
             .ConfigureAwait(false);
     }
 }

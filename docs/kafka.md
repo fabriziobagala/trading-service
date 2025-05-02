@@ -59,15 +59,15 @@ A JSON object with the full trade execution details:
 
 - **Format**: UTF-8 encoded JSON
 - **Schema**: Follows the same contract as the `GET /trades/{id}` API response
-- **Type Handling**: Uses System.Text.Json with enums serialized as strings
+- **Type Handling**: Uses `System.Text.Json` with enums serialized as strings
 
 ### Producer Code Structure
 
 The producer is implemented in the Infrastructure layer:
 
-- [KafkaProducer](src/TradingService.Infrastructure/Messaging/KafkaProducer.cs): Generic implementation of IMessageProducer
-- [KafkaTradeExecutedEventPublisher](src/TradingService.Infrastructure/Messaging/Publishers/KafkaTradeExecutedEventPublisher.cs): Specific publisher for trade events
-- [TradeEventMapper](src/TradingService.Application/Features/Trades/Mappers/TradeEventMapper.cs): Maps domain entities to event DTOs
+- [KafkaProducer](../src/TradingService.Infrastructure/Messaging/KafkaProducer.cs): Generic implementation of IMessageProducer
+- [KafkaTradeExecutedEventPublisher](../src/TradingService.Infrastructure/Messaging/Publishers/KafkaTradeExecutedEventPublisher.cs): Specific publisher for trade events
+- [TradeEventMapper](../src/TradingService.Application/Features/Trades/Mappers/TradeEventMapper.cs): Maps domain entities to event
 
 ### Configuration
 
@@ -88,7 +88,7 @@ The solution includes a separate console application (`TradingService.Consumer`)
 
 ### Consumer Service
 
-The main consumer service is implemented in [TradeConsumerService.cs](src/TradingService.Consumer/Services/TradeConsumerService.cs) with the following features:
+The main consumer service is implemented in [TradeConsumerService.cs](../src/TradingService.Consumer/Services/TradeConsumerService.cs) with the following features:
 
 - Inherits from `BackgroundService` for long-running background processing
 - Uses the `Confluent.Kafka` client library with consumer groups

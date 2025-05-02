@@ -25,11 +25,14 @@ public class GetPagedTradesQueryValidatorTests
         actual.ShouldHaveValidationErrorFor(x => x.PageNumber);
     }
 
-    [Fact]
-    public void Validate_InvalidPageSize_ReturnsError()
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(0)]
+    [InlineData(51)]
+    public void Validate_InvalidPageSize_ReturnsError(int pageSize)
     {
         // Arrange
-        var query = new GetPagedTradesQuery(1, 0);
+        var query = new GetPagedTradesQuery(1, pageSize);
 
         // Act
         var actual = _validator.TestValidate(query);

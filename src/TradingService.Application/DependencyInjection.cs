@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using TradingService.Application.Features.Trades.Commands.ExecuteTrade;
 
@@ -13,6 +14,7 @@ public static class DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddMediatR();
+        services.AddFluentValidation();
 
         return services;
     }
@@ -20,5 +22,10 @@ public static class DependencyInjection
     private static void AddMediatR(this IServiceCollection services)
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<ExecuteTradeCommandHandler>());
+    }
+
+    private static void AddFluentValidation(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssemblyContaining<ExecuteTradeCommandValidator>();
     }
 }

@@ -18,4 +18,13 @@ public static partial class InfrastructureLogging
 
     [LoggerMessage(EventName = "RedisCacheSet", Level = LogLevel.Information, Message = "Data set in Redis cache for key: {Key} with value: {Value}")]
     public static partial void LogRedisCacheSet(this ILogger logger, string key, string value);
+
+    [LoggerMessage(EventName = "KafkaProducerProducing", Level = LogLevel.Information, Message = "Producing message to Kafka topic: {Topic}")]
+    public static partial void LogKafkaProducerProducing(this ILogger logger, string topic);
+
+    [LoggerMessage(EventName = "KafkaProducerProduced", Level = LogLevel.Information, Message = "Produced message to Kafka topic: {Topic} with key: {Key} and value: {Value}")]
+    public static partial void LogKafkaProducerProduced(this ILogger logger, string topic, string key, string value);
+
+    [LoggerMessage(EventName = "KafkaProducerError", Level = LogLevel.Error, Message = "Error producing message to Kafka topic: {Topic} with key: {Key} and value: {Value}. Error: {Error}")]
+    public static partial void LogKafkaProducerError(this ILogger logger, Exception ex, string topic, string key, string value, string error);
 }

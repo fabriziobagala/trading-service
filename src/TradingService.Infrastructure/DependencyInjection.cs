@@ -2,9 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TradingService.Application.Common.Interfaces.Caching;
+using TradingService.Application.Common.Interfaces.Messaging;
 using TradingService.Application.Common.Interfaces.Persistence;
 using TradingService.Domain.Repositories;
 using TradingService.Infrastructure.Caching.Redis;
+using TradingService.Infrastructure.Messaging.Kafka;
 using TradingService.Infrastructure.Persistence;
 using TradingService.Infrastructure.Persistence.Context;
 using TradingService.Infrastructure.Persistence.Repositories;
@@ -29,6 +31,12 @@ public static class DependencyInjection
         {
             options.ConnectionString = configuration["Redis:ConnectionString"];
             options.InstanceName = configuration["Redis:InstanceName"];
+        });
+
+        services.AddKafka(options =>
+        {
+            options.BootstrapServers = configuration["Kafka:BootstrapServers"];
+            options.TradeExecutedTopic = configuration["Kafka:TradeExecutedTopic"];
         });
 
         return services;
@@ -62,6 +70,16 @@ public static class DependencyInjection
 
         services.AddDistributedMemoryCache();
         services.AddScoped<ICacheService, RedisCacheService>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddKafka(
+        this IServiceCollection services,
+        Action<KafkaOptions> configureOptions)
+    {
+        services.Configure(configureOptions);
+        services.AddSingleton<IMessageProducer, KafkaProducer>();
 
         return services;
     }

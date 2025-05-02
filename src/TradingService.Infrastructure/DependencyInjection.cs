@@ -3,10 +3,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TradingService.Application.Common.Interfaces.Caching;
 using TradingService.Application.Common.Interfaces.Messaging;
+using TradingService.Application.Common.Interfaces.Messaging.Publishers;
 using TradingService.Application.Common.Interfaces.Persistence;
 using TradingService.Domain.Repositories;
 using TradingService.Infrastructure.Caching.Redis;
 using TradingService.Infrastructure.Messaging.Kafka;
+using TradingService.Infrastructure.Messaging.Kafka.Publishers;
 using TradingService.Infrastructure.Persistence;
 using TradingService.Infrastructure.Persistence.Context;
 using TradingService.Infrastructure.Persistence.Repositories;
@@ -80,6 +82,7 @@ public static class DependencyInjection
     {
         services.Configure(configureOptions);
         services.AddSingleton<IMessageProducer, KafkaProducer>();
+        services.AddSingleton<ITradeExecutedEventPublisher, KafkaTradeExecutedEventPublisher>();
 
         return services;
     }

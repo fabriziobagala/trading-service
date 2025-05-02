@@ -27,4 +27,10 @@ public static partial class InfrastructureLogging
 
     [LoggerMessage(EventName = "KafkaProducerError", Level = LogLevel.Error, Message = "Error producing message to Kafka topic: {Topic} with key: {Key} and value: {Value}. Error: {Error}")]
     public static partial void LogKafkaProducerError(this ILogger logger, Exception ex, string topic, string key, string value, string error);
+
+    [LoggerMessage(EventName = "TradeExecutedEventPublishing", Level = LogLevel.Information, Message = "Publishing TradeExecutedEvent with ID: {TradeExecutedEventId}")]
+    public static partial void LogTradeExecutedEventPublishing(this ILogger logger, Guid tradeExecutedEventId);
+
+    [LoggerMessage(EventName = "TradeExecutedEventPublished", Level = LogLevel.Information, Message = "Published TradeExecutedEvent with ID: {TradeExecutedEventId}")]
+    public static partial void LogTradeExecutedEventPublished(this ILogger logger, Guid tradeExecutedEventId);
 }

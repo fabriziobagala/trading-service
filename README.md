@@ -186,7 +186,7 @@ For local HTTPS development:
 
 1. **Generate a development certificate**:
    ```bash
-   dotnet dev-certs https -ep src/TradingService.API/devcert.pfx -p your_password
+   dotnet dev-certs https -ep src/TradingService.API/devcert.pfx -p password
    ```
 
 2. **Configure environment variables** in `.env`:

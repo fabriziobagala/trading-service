@@ -19,7 +19,11 @@ public class GetPagedTradesQueryHandlerTests : IClassFixture<TradeFixture>
     {
         _repositoryMock = new Mock<ITradeRepository>();
         _loggerMock = new Mock<ILogger<GetPagedTradesQueryHandler>>();
-        _handler = new GetPagedTradesQueryHandler(_repositoryMock.Object, _loggerMock.Object);
+
+        _handler = new GetPagedTradesQueryHandler(
+            _repositoryMock.Object,
+            _loggerMock.Object);
+
         _trade = tradeFixture.Trade;
     }
 
@@ -27,20 +31,24 @@ public class GetPagedTradesQueryHandlerTests : IClassFixture<TradeFixture>
     public void Constructor_WhenRepositoryIsNull_ThrowsArgumentNullException()
     {
         // Act
-        var act = () => new GetPagedTradesQueryHandler(null!, _loggerMock.Object);
+        var act = () => new GetPagedTradesQueryHandler(
+            null!,
+            _loggerMock.Object);
 
         // Assert
-        Assert.Throws<ArgumentNullException>(act);
+        Assert.Throws<ArgumentNullException>("repository", act);
     }
 
     [Fact]
     public void Constructor_WhenLoggerIsNull_ThrowsArgumentNullException()
     {
         // Act
-        var act = () => new GetPagedTradesQueryHandler(_repositoryMock.Object, null!);
+        var act = () => new GetPagedTradesQueryHandler(
+            _repositoryMock.Object,
+            null!);
 
         // Assert
-        Assert.Throws<ArgumentNullException>(act);
+        Assert.Throws<ArgumentNullException>("logger", act);
     }
 
     [Fact]

@@ -6,12 +6,7 @@ using TradingService.Consumer.Configuration;
 using TradingService.Consumer.Services;
 
 await Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration((context, config) =>
-    {
-        config.AddJsonFile("appsettings.json", optional: false);
-        config.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true);
-        config.AddEnvironmentVariables();
-    })
+    .ConfigureAppConfiguration((context, config) => config.AddEnvironmentVariables())
     .UseSerilog((context, services, config) =>
     {
         config

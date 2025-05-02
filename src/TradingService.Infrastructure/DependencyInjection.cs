@@ -1,7 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TradingService.Application.Common.Interfaces.Persistence;
+using TradingService.Domain.Repositories;
+using TradingService.Infrastructure.Persistence;
 using TradingService.Infrastructure.Persistence.Context;
+using TradingService.Infrastructure.Persistence.Repositories;
 
 namespace TradingService.Infrastructure;
 
@@ -29,6 +33,8 @@ public static class DependencyInjection
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
 
         services.AddDbContext<TradingDbContext>(options => options.UseNpgsql(connectionString));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ITradeRepository, TradeRepository>();
 
         return services;
     }

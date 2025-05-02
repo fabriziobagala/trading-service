@@ -7,4 +7,8 @@
     <LangVersion>12.0</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TradingService.Application\TradingService.Application.csproj" />
+  </ItemGroup>
+
 </Project>

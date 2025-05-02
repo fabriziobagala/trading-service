@@ -13,6 +13,9 @@ public static partial class ApplicationLogging
     [LoggerMessage(EventName = "ValidationError", Level = LogLevel.Error, Message = "Validation errors occurred for {RequestName}: {@Errors}")]
     public static partial void LogValidationErrors(this ILogger logger, string requestName, string errors);
 
+    [LoggerMessage(EventName = "TradeSaved", Level = LogLevel.Information, Message = "Trade with ID {TradeId} saved successfully")]
+    public static partial void LogTradeSaved(this ILogger logger, Guid tradeId);
+
     [LoggerMessage(EventName = "NoTradesFound", Level = LogLevel.Warning, Message = "No trades found for the given page number: {PageNumber} and size: {PageSize}.")]
     public static partial void LogNoTradesFound(this ILogger logger, int pageNumber, int pageSize);
 

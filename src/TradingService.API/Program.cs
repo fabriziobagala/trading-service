@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using TradingService.API.Extensions;
 using TradingService.Application;
 using TradingService.Infrastructure;
@@ -17,7 +18,13 @@ builder.Services.AddRouting(options =>
     options.LowercaseUrls = true;
 });
 
-builder.Services.AddControllers();
+// Convert enums to strings in JSON responses.
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -18,6 +18,6 @@ await Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
     {
         services.Configure<KafkaOptions>(context.Configuration.GetSection("Kafka"));
-        services.AddHostedService<TradeExecuteEventConsumerService>();
+        services.AddHostedService<TradeConsumerService>();
     })
     .RunConsoleAsync();

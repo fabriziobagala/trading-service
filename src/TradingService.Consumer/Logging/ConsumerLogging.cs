@@ -4,7 +4,7 @@ namespace TradingService.Consumer.Logging;
 
 public static partial class ConsumerLogging
 {
-    [LoggerMessage(EventName = "TradeConsumerServiceStarting", Level = LogLevel.Information, Message = "Trade Consumer Service is starting...")]
+    [LoggerMessage(EventName = "TradeConsumerServiceStarting", Level = LogLevel.Information, Message = "Trade consumer service is starting...")]
     public static partial void LogTradeConsumerServiceStarting(this ILogger logger);
 
     [LoggerMessage(EventName = "TradeExecutedEventReceived", Level = LogLevel.Information, Message = "Received trade executed event with key {Key} from partition {Partition} at offset {Offset}")]
@@ -16,9 +16,9 @@ public static partial class ConsumerLogging
     [LoggerMessage(EventName = "TradeExecutedEventProcessingError", Level = LogLevel.Error, Message = "Error processing trade event: {ErrorMessage}")]
     public static partial void LogTradeExecutedEventProcessingError(this ILogger logger, Exception ex, string errorMessage);
 
-    [LoggerMessage(EventName = "TradeConsumerServiceError", Level = LogLevel.Error, Message = "Trade Consumer Service encountered an error: {ErrorMessage}")]
+    [LoggerMessage(EventName = "TradeConsumerServiceError", Level = LogLevel.Error, Message = "Trade consumer service encountered an error: {ErrorMessage}")]
     public static partial void LogTradeConsumerServiceError(this ILogger logger, Exception ex, string errorMessage);
 
-    [LoggerMessage(EventName = "TradeConsumerServiceStopping", Level = LogLevel.Information, Message = "Trade Consumer Service is stopping.")]
+    [LoggerMessage(EventName = "TradeConsumerServiceStopping", Level = LogLevel.Information, Message = "Trade consumer service is stopping.")]
     public static partial void LogTradeConsumerServiceStopping(this ILogger logger);
 }

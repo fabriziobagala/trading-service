@@ -9,15 +9,15 @@ using TradingService.Shared.Helpers;
 
 namespace TradingService.Consumer.Services;
 
-public class TradeExecuteEventConsumerService : BackgroundService
+public class TradeConsumerService : BackgroundService
 {
     private readonly KafkaOptions _options;
-    private readonly ILogger<TradeExecuteEventConsumerService> _logger;
+    private readonly ILogger<TradeConsumerService> _logger;
     private readonly IConsumer<string, string> _consumer;
     
-    public TradeExecuteEventConsumerService(
+    public TradeConsumerService(
         IOptions<KafkaOptions> settings,
-        ILogger<TradeExecuteEventConsumerService> logger)
+        ILogger<TradeConsumerService> logger)
     {
         _options = settings.Value;
         _logger = logger;

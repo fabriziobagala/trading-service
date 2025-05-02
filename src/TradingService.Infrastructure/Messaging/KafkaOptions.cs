@@ -1,4 +1,4 @@
-namespace TradingService.Infrastructure.Messaging.Kafka;
+namespace TradingService.Infrastructure.Messaging;
 
 /// <summary>
 /// Configuration options for Kafka messaging.

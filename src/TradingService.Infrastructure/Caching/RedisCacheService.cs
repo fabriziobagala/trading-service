@@ -4,7 +4,7 @@ using TradingService.Application.Common.Interfaces.Caching;
 using TradingService.Infrastructure.Logging;
 using TradingService.Shared.Helpers;
 
-namespace TradingService.Infrastructure.Caching.Redis;
+namespace TradingService.Infrastructure.Caching;
 
 public class RedisCacheService : ICacheService
 {

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using TradingService.Application.Common.Interfaces.Messaging;
 using TradingService.Infrastructure.Logging;
 
-namespace TradingService.Infrastructure.Messaging.Kafka;
+namespace TradingService.Infrastructure.Messaging;
 
 public class KafkaProducer : IMessageProducer, IDisposable
 {

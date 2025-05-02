@@ -6,7 +6,7 @@ using TradingService.Domain.Events;
 using TradingService.Infrastructure.Logging;
 using TradingService.Shared.Helpers;
 
-namespace TradingService.Infrastructure.Messaging.Kafka.Publishers;
+namespace TradingService.Infrastructure.Messaging.Publishers;
 
 public class KafkaTradeExecutedEventPublisher : ITradeExecutedEventPublisher
 {

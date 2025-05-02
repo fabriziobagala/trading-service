@@ -1,4 +1,4 @@
-namespace TradingService.Infrastructure.Caching.Redis;
+namespace TradingService.Infrastructure.Caching;
 
 /// <summary>
 /// Configuration options for Redis caching.

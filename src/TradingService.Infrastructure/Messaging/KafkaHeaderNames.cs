@@ -1,4 +1,4 @@
-namespace TradingService.Infrastructure.Messaging.Kafka;
+namespace TradingService.Infrastructure.Messaging;
 
 /// <summary>
 /// Provides a set of constants representing the names of Kafka headers.

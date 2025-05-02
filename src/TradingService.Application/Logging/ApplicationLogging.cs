@@ -10,6 +10,9 @@ public static partial class ApplicationLogging
     [LoggerMessage(EventName = "RequestHandled", Level = LogLevel.Information, Message = "Handled {RequestName}")]
     public static partial void LogRequestHandled(this ILogger logger, string requestName);
 
+    [LoggerMessage(EventName = "ValidationError", Level = LogLevel.Error, Message = "Validation errors occurred for {RequestName}: {@Errors}")]
+    public static partial void LogValidationErrors(this ILogger logger, string requestName, string errors);
+
     [LoggerMessage(EventName = "NoTradesFound", Level = LogLevel.Warning, Message = "No trades found for the given page number: {PageNumber} and size: {PageSize}.")]
     public static partial void LogNoTradesFound(this ILogger logger, int pageNumber, int pageSize);
 

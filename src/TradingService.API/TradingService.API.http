@@ -1,6 +1,20 @@
-@TradingService.API_HostAddress = http://localhost:5038
+@hostAddress = https://localhost:7029
+@tradeId = 1570b546-7456-4358-bcc3-38b08b428bde
 
-GET {{TradingService.API_HostAddress}}/weatherforecast/
+### Create new trade
+POST {{hostAddress}}/api/v1/trades
+Content-Type: application/json
+
+{
+  "price": 75.50,
+  "quantity": 100,
+  "side": "Buy"
+}
+
+### Get trades with pagination
+GET {{hostAddress}}/api/v1/trades?pageNumber=1&pageSize=10
 Accept: application/json
 
-###
+### Get trade by ID
+GET {{hostAddress}}/api/v1/trades/{{tradeId}}
+Accept: application/json

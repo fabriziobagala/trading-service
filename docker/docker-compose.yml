@@ -13,6 +13,15 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - trading-network
+  
+  redis:
+    image: redis:7.4
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - trading-network
 
 networks:
   trading-network:
@@ -20,3 +29,4 @@ networks:
 
 volumes:
   postgres-data:
+  redis-data:

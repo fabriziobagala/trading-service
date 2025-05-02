@@ -39,7 +39,7 @@ public class GetTradeByIdQueryHandlerTests : IClassFixture<TradeFixture>
             _loggerMock.Object);
 
         // Assert
-        Assert.Throws<ArgumentNullException>("logger", act);
+        Assert.Throws<ArgumentNullException>("repository", act);
     }
 
     [Fact]

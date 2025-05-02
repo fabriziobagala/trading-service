@@ -61,7 +61,7 @@ public class KafkaProducer : IMessageProducer, IDisposable
                 {
                     { KafkaHeaderNames.ContentType, Encoding.UTF8.GetBytes(MediaTypeNames.Application.Json) },
                     { KafkaHeaderNames.ContentEncoding, Encoding.UTF8.GetBytes(Encoding.UTF8.WebName) },
-                    { KafkaHeaderNames.Timestamp, BitConverter.GetBytes(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()) }
+                    { KafkaHeaderNames.Timestamp, Encoding.UTF8.GetBytes(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString()) }
                 }
             };
 

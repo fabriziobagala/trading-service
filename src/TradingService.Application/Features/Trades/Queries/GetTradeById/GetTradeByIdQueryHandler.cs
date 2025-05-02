@@ -9,18 +9,18 @@ using TradingService.Domain.Repositories;
 
 namespace TradingService.Application.Features.Trades.Queries.GetTradeById;
 
-public class GetByIdQueryHandler : IRequestHandler<GetTradeByIdQuery, TradeDto>
+public class GetTradeByIdQueryHandler : IRequestHandler<GetTradeByIdQuery, TradeDto>
 {
-    private readonly ITradeRepository _tradeRepository;
+    private readonly ITradeRepository _repository;
     private readonly ICacheService _cacheService;
-    private readonly ILogger<GetByIdQueryHandler> _logger;
+    private readonly ILogger<GetTradeByIdQueryHandler> _logger;
 
-    public GetByIdQueryHandler(
-        ITradeRepository tradeRepository, 
+    public GetTradeByIdQueryHandler(
+        ITradeRepository repository,
         ICacheService cacheService,
-        ILogger<GetByIdQueryHandler> logger)
+        ILogger<GetTradeByIdQueryHandler> logger)
     {
-        _tradeRepository = tradeRepository ?? throw new ArgumentNullException(nameof(tradeRepository));
+        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -39,7 +39,7 @@ public class GetByIdQueryHandler : IRequestHandler<GetTradeByIdQuery, TradeDto>
             return cachedTrade;
         }
 
-        var trade = await _tradeRepository.GetByIdAsync(request.Id, cancellationToken)
+        var trade = await _repository.GetByIdAsync(request.Id, cancellationToken)
             .ConfigureAwait(false);
         
         if (trade == null)

@@ -70,6 +70,16 @@ services:
     networks:
       - trading-network
 
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - "${SEQ_API_PORT}:5341" # Entry point
+      - "${SEQ_UI_PORT}:80"    # Web UI
+    environment:
+      - ACCEPT_EULA=Y
+    networks:
+      - trading-network
+
 networks:
   trading-network:
     driver: bridge

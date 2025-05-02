@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-api",
+            "command": "dotnet",
+            "type": "process",
+            "args": [ "build", "${workspaceFolder}/src/TradingService.API/TradingService.API.csproj" ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
+            "label": "build-console",
+            "command": "dotnet",
+            "type": "process",
+            "args": [ "build", "${workspaceFolder}/src/TradingService.Consumer/TradingService.Consumer.csproj" ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
+            "label": "build-solution",
+            "command": "dotnet",
+            "type": "process",
+            "args": [ "build", "${workspaceFolder}/TradingService.sln" ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

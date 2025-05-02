@@ -1,0 +1,45 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "API",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-api",
+            "program": "${workspaceFolder}/src/TradingService.API/bin/Debug/net8.0/TradingService.API.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/TradingService.API",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+                "uriFormat": "%s/swagger"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "internalConsole"
+        },
+        {
+            "name": "Consumer",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-console",
+            "program": "${workspaceFolder}/src/TradingService.Consumer/bin/Debug/net8.0/TradingService.Consumer.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/TradingService.Consumer",
+            "stopAtEntry": false,
+            "console": "externalTerminal",
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "API + Consumer",
+            "configurations": [ "API", "Consumer" ],
+            "stopAll": true
+        }
+    ]
+}

@@ -36,6 +36,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerWithVersioning();
 }
 
+app.UseUseExceptionHandling();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

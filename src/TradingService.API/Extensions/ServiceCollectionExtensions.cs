@@ -1,6 +1,8 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.OpenApi.Models;
+using TradingService.API.Middleware;
 
 namespace TradingService.API.Extensions;
 
@@ -15,6 +17,19 @@ internal static class ServiceCollectionExtensions
     {
         services.ConfigureApiVersioning();
         services.ConfigureVersionedSwaggerGen();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds services for creation of problem details for the API.
+    /// </summary>
+    /// <param name="services">The service collection to add the services to.</param>
+    /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
+    internal static IServiceCollection AddCustomProblemDetails(this IServiceCollection services)
+    {
+        services.AddProblemDetails();
+        services.AddTransient<ProblemDetailsFactory, CustomProblemDetailsFactory>();
 
         return services;
     }

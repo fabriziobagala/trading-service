@@ -27,4 +27,9 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\TradingService.Application\TradingService.Application.csproj" />
+    <ProjectReference Include="..\..\src\TradingService.Shared\TradingService.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

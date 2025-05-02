@@ -1,0 +1,41 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# Copy the solution and project files first to optimize caching
+COPY ["TradingService.sln", "./"]
+COPY ["src/TradingService.API/TradingService.API.csproj", "./src/TradingService.API/"]
+COPY ["src/TradingService.Application/TradingService.Application.csproj", "./src/TradingService.Application/"]
+COPY ["src/TradingService.Domain/TradingService.Domain.csproj", "./src/TradingService.Domain/"]
+COPY ["src/TradingService.Shared/TradingService.Shared.csproj", "./src/TradingService.Shared/"]
+COPY ["src/TradingService.Infrastructure/TradingService.Infrastructure.csproj", "./src/TradingService.Infrastructure/"]
+
+# Restore NuGet packages
+RUN dotnet restore "src/TradingService.API/TradingService.API.csproj"
+
+# Copy the rest of the source code
+COPY ["src/", "./src/"]
+
+# Build and publish the application
+RUN dotnet publish "src/TradingService.API/TradingService.API.csproj" -c Release -o /app/publish
+
+# Build the runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+
+# Install dependencies for librdkafka if needed
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libssl-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the published app
+COPY --from=build /app/publish .
+
+# Copy certificate
+COPY ["src/TradingService.API/devcert.pfx", "./"]
+
+# Expose ports
+EXPOSE 80
+EXPOSE 443
+
+# Set the entry point
+ENTRYPOINT ["dotnet", "TradingService.API.dll"]

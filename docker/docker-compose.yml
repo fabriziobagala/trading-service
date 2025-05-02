@@ -1,6 +1,53 @@
 name: trading-service
 
 services:
+  tradingservice-api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    ports:
+      - "${API_HTTP_PORT}:80"
+      - "${API_HTTPS_PORT}:443"
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_CERT_PATH}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_CERT_PASSWORD}
+      - ConnectionStrings__DefaultConnection=${DB_CONNECTION_STRING}
+      - Redis__ConnectionString=${REDIS_CONNECTION_STRING}
+      - Redis__InstanceName=${REDIS_INSTANCE_NAME}
+      - Kafka__BootstrapServers=${KAFKA_BOOTSTRAP_SERVERS}
+      - Kafka__TradeExecutedTopic=${KAFKA_TRADE_EXECUTED_TOPIC}
+      - Seq__ServerUrl=${SEQ_SERVER_URL}
+    volumes:
+      - ${SSL_CERT_HOST_PATH}:/app/devcert.pfx:ro
+    networks:
+      - trading-network
+
+  tradingservice-consumer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.consumer
+    depends_on:
+      kafka:
+        condition: service_healthy
+      seq:
+        condition: service_started
+    environment:
+      - DOTNET_ENVIRONMENT=${DOTNET_ENVIRONMENT}
+      - Kafka__BootstrapServers=${KAFKA_BOOTSTRAP_SERVERS}
+      - Kafka__GroupId=${KAFKA_GROUP_ID}
+      - Kafka__AutoOffsetReset=${KAFKA_AUTO_OFFSET_RESET}
+      - Kafka__AllowAutoCreateTopics=${KAFKA_ALLOW_AUTO_CREATE_TOPICS}
+      - Kafka__TradeExecutedTopic=${KAFKA_TRADE_EXECUTED_TOPIC}
+      - Seq__ServerUrl=${SEQ_SERVER_URL}
+    networks:
+      - trading-network
+
   postgres:
     image: postgres:17.4
     ports:

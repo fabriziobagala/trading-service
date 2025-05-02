@@ -2,7 +2,7 @@ using Serilog;
 
 namespace TradingService.API.Extensions;
 
-public static class HostBuilderExtensions
+internal static class HostBuilderExtensions
 {
     /// <summary>
     /// Sets up Serilog for logging in the host builder.

@@ -1,7 +1,11 @@
+using TradingService.API.Extensions;
 using TradingService.Application;
 using TradingService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Set up Serilog for logging.
+builder.Host.UseSerilog();
 
 // Register the layer services.
 builder.Services.AddApplication();

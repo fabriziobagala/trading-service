@@ -31,6 +31,9 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Adds services for custom problem details.
+builder.Services.AddCustomProblemDetails();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

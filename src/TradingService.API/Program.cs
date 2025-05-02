@@ -8,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Set up Serilog for logging.
 builder.Host.UseSerilog();
 
+// Configure API versioning and Swagger.
+builder.Services.AddApiVersioningAndSwagger();
+
 // Register the layer services.
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);

@@ -1,8 +1,10 @@
+using TradingService.Application;
 using TradingService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Register the layer services.
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddControllers();

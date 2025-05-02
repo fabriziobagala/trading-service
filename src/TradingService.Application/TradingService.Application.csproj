@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TradingService.Domain\TradingService.Domain.csproj" />
     <ProjectReference Include="..\TradingService.Shared\TradingService.Shared.csproj" />
   </ItemGroup>

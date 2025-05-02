@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TradingService.Application.Common.Interfaces.Caching;
 using TradingService.Application.Common.Interfaces.Persistence;
 using TradingService.Domain.Repositories;
+using TradingService.Infrastructure.Caching.Redis;
 using TradingService.Infrastructure.Persistence;
 using TradingService.Infrastructure.Persistence.Context;
 using TradingService.Infrastructure.Persistence.Repositories;
@@ -23,6 +25,12 @@ public static class DependencyInjection
     {
         services.AddPersistence(configuration.GetConnectionString("DefaultConnection"));
 
+        services.AddRedis(options =>
+        {
+            options.ConnectionString = configuration["Redis:ConnectionString"];
+            options.InstanceName = configuration["Redis:InstanceName"];
+        });
+
         return services;
     }
 
@@ -35,6 +43,25 @@ public static class DependencyInjection
         services.AddDbContext<TradingDbContext>(options => options.UseNpgsql(connectionString));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ITradeRepository, TradeRepository>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddRedis(
+        this IServiceCollection services,
+        Action<RedisOptions> configureOptions)
+    {
+        var redisOptions = new RedisOptions();
+        configureOptions(redisOptions);
+        
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = redisOptions.ConnectionString;
+            options.InstanceName = redisOptions.InstanceName;
+        });
+
+        services.AddDistributedMemoryCache();
+        services.AddScoped<ICacheService, RedisCacheService>();
 
         return services;
     }

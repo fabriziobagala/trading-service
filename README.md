@@ -250,9 +250,3 @@ Detailed technical documentation is available in the [docs](docs) directory:
 ## 📄 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-  <p>Built with ❤️ using ASP.NET Core and Clean Architecture</p>
-</div>

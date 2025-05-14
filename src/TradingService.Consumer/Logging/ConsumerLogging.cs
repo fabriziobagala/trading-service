@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 
 namespace TradingService.Consumer.Logging;
 
-public static partial class ConsumerLogging
+internal static partial class ConsumerLogging
 {
     [LoggerMessage(EventName = "TradeConsumerServiceStarting", Level = LogLevel.Information, Message = "Trade consumer service is starting...")]
     public static partial void LogTradeConsumerServiceStarting(this ILogger logger);

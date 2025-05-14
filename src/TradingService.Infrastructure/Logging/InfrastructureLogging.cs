@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 
 namespace TradingService.Infrastructure.Logging;
 
-public static partial class InfrastructureLogging
+internal static partial class InfrastructureLogging
 {
     [LoggerMessage(EventName = "RedisCacheRetrieving", Level = LogLevel.Information, Message = "Retrieving data from Redis cache for key: {Key}")]
     public static partial void LogRedisCacheRetrieving(this ILogger logger, string key);

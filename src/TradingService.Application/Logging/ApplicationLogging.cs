@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 
 namespace TradingService.Application.Logging;
 
-public static partial class ApplicationLogging
+internal static partial class ApplicationLogging
 {
     [LoggerMessage(EventName = "RequestHandling", Level = LogLevel.Information, Message = "Handling {RequestName} with payload: {@Request}")]
     public static partial void LogRequestHandling(this ILogger logger, string requestName, object request);

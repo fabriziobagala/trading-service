@@ -55,6 +55,7 @@ public class TradeRepository : ITradeRepository
             .ConfigureAwait(false);
 
         var items = await _context.Trades
+            .AsNoTracking()
             .OrderByDescending(t => t.ExecutedAt)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)

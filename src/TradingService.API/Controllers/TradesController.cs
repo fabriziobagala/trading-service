@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,8 @@ public class TradesController : ControllerBase
     [ProducesResponseType(typeof(TradeDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
     public async Task<IActionResult> Execute([FromBody] ExecuteTradeCommand command)
     {
         var tradeDto = await _mediator.Send(command);
@@ -35,6 +38,7 @@ public class TradesController : ControllerBase
     [ProducesResponseType(typeof(PaginatedResult<TradeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<IActionResult> GetPagedTrades([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
         var paginatedResult = await _mediator.Send(new GetPagedTradesQuery(pageNumber, pageSize));
@@ -46,6 +50,7 @@ public class TradesController : ControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<IActionResult> GetTradeById(Guid id)
     {
         var tradeDto = await _mediator.Send(new GetTradeByIdQuery(id));
